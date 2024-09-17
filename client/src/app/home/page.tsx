@@ -7,7 +7,7 @@ import {
   useGetProjectsQuery,
   useGetTasksQuery,
 } from "@/state/api";
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector } from "../redux";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Header from "@/components/Header";
@@ -25,6 +25,8 @@ import {
   YAxis,
 } from "recharts";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
+import ModalNewProject from "../projects/ModalNewProject";
+import { PlusSquare } from "lucide-react";
 
 const taskColumns: GridColDef[] = [
   { field: "title", headerName: "Title", width: 200 },
@@ -45,6 +47,7 @@ const HomePage = () => {
     useGetProjectsQuery();
 
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const [isModalNewProjectOpen, setIsModalNewProjectOpen] = useState(false);
 
   if (tasksLoading || isProjectsLoading) return <div>Loading..</div>;
   if (tasksError || !tasks || !projects) return <div>Error fetching data</div>;
@@ -96,7 +99,21 @@ const HomePage = () => {
 
   return (
     <div className="container h-full w-[100%] bg-gray-100 bg-transparent p-8">
-      <Header name="Project Management Dashboard" />
+      <ModalNewProject
+        isOpen={isModalNewProjectOpen}
+        onClose={() => setIsModalNewProjectOpen(false)}
+      />
+      <Header
+        name="Project Management Dashboard"
+        buttonComponent={
+          <button
+            onClick={() => setIsModalNewProjectOpen(true)}
+            className="flex items-center rounded-md bg-blue-600 px-3 py-2 text-white hover:bg-blue-600"
+          >
+            <PlusSquare className="mr-2 h-5 w-5" /> New Boards
+          </button>
+        }
+      />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="rounded-lg bg-white p-4 shadow dark:bg-dark-secondary">
           <h3 className="mb-4 text-lg font-semibold dark:text-white">

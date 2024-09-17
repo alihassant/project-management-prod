@@ -22,11 +22,6 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
 
-  console.log(id);
-  console.log(Status.UnderReview);
-  console.log("Status", status);
-  console.log("Priority", priority);
-
   const handleSubmit = async () => {
     if (!title || !authorUserId || !(id !== null || projectId)) return;
 
@@ -54,9 +49,6 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const isFormValid = () => {
     return title && authorUserId && (id !== null || projectId);
   };
-
-  console.log(projectId);
-  console.log(isFormValid());
 
   const selectStyles =
     "mb-4 block w-full rounded border border-gray-300 px-3 py-2 dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none";

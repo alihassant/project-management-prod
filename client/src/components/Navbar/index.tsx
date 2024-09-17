@@ -23,6 +23,8 @@ const Navbar = () => {
     }
   };
 
+  console.log(currentUser);
+
   if (!currentUser) return null;
   const currentUserDetails = currentUser?.userDetails;
 
